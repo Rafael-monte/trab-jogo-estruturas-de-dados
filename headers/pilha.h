@@ -84,7 +84,7 @@ Pilha* SelecionarDificuldade() {
     void PrintarPilhas(Pilha* pilhas) {
         for (int linha = 0; linha < pilhas[0].tamMax; linha++) {
             for (int coluna = 0; coluna < pilhas[0].tamMax+2; coluna++) {
-                if (pilhas[coluna].topo==0||pilhas[coluna].topo < coluna || PilhaVazia(pilhas[coluna])) {
+                if (pilhas[coluna].topo < coluna || PilhaVazia(pilhas[coluna])) {
                     printf("- ");
                 } else {
                     printf("%d ", pilhas[coluna].elem[linha]);
