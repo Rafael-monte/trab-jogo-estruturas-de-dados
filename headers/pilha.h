@@ -33,10 +33,10 @@ void Empilha(Pilha* pilha, int newElem) {
     }
 }
 
-void Desempilha(Pilha pilha, int remElem) {
-    if (!PilhaVazia(pilha)) {
-        remElem = pilha.elem[pilha.topo];
-        pilha.topo--;
+void Desempilha(Pilha* pilha, int remElem) {
+    if (!PilhaVazia(*pilha)) {
+        remElem = pilha->elem[pilha->topo];
+        pilha->topo--;
     }
 }
 
