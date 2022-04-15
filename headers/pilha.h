@@ -10,8 +10,8 @@
 
 typedef struct Pilha {
     int topo = -1;
-    int elem[];
     int tamMax = 0;
+    int elem[];
 }
 
 //Métodos de Pilha
