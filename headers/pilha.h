@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define FACIL 1
 #define MEDIO 2
 #define DIFICIL 3
@@ -50,13 +51,44 @@ int ElementoDoTopo(Pilha pilha) {
 }
 
 //Métodos para o jogo
+int GerarNumeroAleatorioEntre(int minimum, int maximum) {
+    return rand()%((maximum+1)-minimum) + minimum;
+}
+
+int ExisteValorRepetido(Pilha pilha, int numero_aleatorio) {
+    for (int slot_pilha = 0; slot_pilha < pilha.topo+1; slot_pilha++) {
+        if (pilha.elem[slot_pilha] == numero_aleatorio) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void GerarValoresNaPilha(Pilha* pilha) {
+    for (int slot_pilha = 0; slot_pilha < pilha->tamMax; slot_pilha++) {
+        int isPilhaVazia = PilhaVazia(*pilha);
+        int numero_aleatorio = GerarNumeroAleatorioEntre(1, pilha->tamMax);
+        if (isPilhaVazia) {
+            Empilha(pilha, numero_aleatorio);
+        } else {
+            if (ExisteValorRepetido(*pilha, numero_aleatorio)) {
+                slot_pilha--;
+            } else {
+                Empilha(pilha, numero_aleatorio);
+            }
+        }
+    }
+}
+
 
 Pilha* InicializarPilhasJogo(int tamanhoPilhas) {
+    srand(time(NULL));
     Pilha* pilhas[tamanhoPilhas+2];
     for (int i = 0; i < tamanhoPilhas+2; i++) {
         pilhas[i] = malloc(sizeof(Pilha) + (sizeof(int[tamanhoPilhas])));
         pilhas[i]->tamMax = tamanhoPilhas;
         InicializaPilha(pilhas[i]);
+        GerarValoresNaPilha(pilhas[i]);
         printf("Topo da pilha %d: %d \n", i, pilhas[i]->topo);
     }
     return *pilhas;
@@ -81,15 +113,16 @@ Pilha* SelecionarDificuldade() {
             return SelecionarDificuldade();
     }
 }
-    void PrintarPilhas(Pilha* pilhas) {
-        for (int linha = 0; linha < pilhas[0].tamMax; linha++) {
-            for (int coluna = 0; coluna < pilhas[0].tamMax+2; coluna++) {
-                if (pilhas[coluna].topo != coluna || PilhaVazia(pilhas[coluna])) {
-                    printf("- ");
-                } else {
-                    printf("%d ", pilhas[coluna].elem[linha]);
-                }
+
+void PrintarPilhas(Pilha* pilhas) {
+    for (int linha = 0; linha < pilhas[0].tamMax; linha++) {
+        for (int coluna = 0; coluna < pilhas[0].tamMax+2; coluna++) {
+            if (pilhas[coluna].topo < coluna || PilhaVazia(pilhas[coluna])) {
+                printf("- ");
+            } else {
+                printf("%d ", pilhas[coluna].elem[linha]);
             }
-            printf("\n");
         }
+        printf("\n");
     }
+}
