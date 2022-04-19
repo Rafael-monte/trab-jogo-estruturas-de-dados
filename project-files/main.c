@@ -6,4 +6,5 @@ Pilha* pilhasJogo;
 int main() {
     printf("Bem vindo ao jogo! \n");
     pilhasJogo = SelecionarDificuldade();
+    PrintarPilhas(pilhasJogo);
 }
