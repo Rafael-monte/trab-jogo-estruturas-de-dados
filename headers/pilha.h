@@ -16,7 +16,6 @@ typedef struct {
 
 //Métodos de Pilha
 void InicializaPilha(Pilha* pilha) {
-    printf("Setando o topo para -1");
     pilha->topo = -1;
 }
 
@@ -26,7 +25,7 @@ int PilhaVazia(Pilha* pilha) {
 }
 
 int PilhaCheia(Pilha pilha) {
-    return pilha.topo == pilha.tamMax;
+    return pilha.topo == (pilha.tamMax);
 }
 
 void Empilha(Pilha* pilha, int newElem) {
@@ -60,13 +59,9 @@ int GerarNumeroAleatorioAte(int maximum) {
 }
 
 int ExisteValorRepetido(Pilha* pilha, int numero_aleatorio) {
-
-    printf("Pilha vazia: %d, numero gerado: %d \n", PilhaVazia(pilha), numero_aleatorio);
-    printf("Tamanho da pilha %d", pilha->topo+1);
     if(!PilhaVazia(pilha)) {
         for (int i = 0; i < (*pilha).tamMax; i++) {
             if ((*pilha).elem[i] == numero_aleatorio) {
-                printf("%d == %d\n", (*pilha).elem[i], numero_aleatorio);
                 return 1;
             }
         }
@@ -92,10 +87,9 @@ Pilha* InicializarPilhasJogo(int tamanhoPilhas) {
     printf("Inicializando pilhas do jogo...\n");
     Pilha pilhas[tamanhoPilhas+2];
     for (int i = 0; i < tamanhoPilhas+2; i++) {
-        printf("Pilha %d...\n", i);
         pilhas[i].tamMax = (tamanhoPilhas);
         InicializaPilha(&pilhas[i]);
-        if (i < tamanhoPilhas - 1) {
+        if (i < tamanhoPilhas) {
             printf("Entrando para gerar valores na pilha %d...\n", i);
             GerarValoresNaPilha(&pilhas[i]);
         }
@@ -106,7 +100,7 @@ Pilha* InicializarPilhasJogo(int tamanhoPilhas) {
 }
 
 Pilha* SelecionarDificuldade() {
-    printf("Selecione a dificuldade do jogo: \n 1) Facil \n 2) Medio \n 3) Dificil \nsua resposta>");
+    printf("Selecione a dificuldade do jogo: \n 1) Facil \n 2) Medio \n 3) Dificil \nsua resposta ->");
     int opcao = 0;
     scanf("%d", &opcao);
     switch (opcao) {
