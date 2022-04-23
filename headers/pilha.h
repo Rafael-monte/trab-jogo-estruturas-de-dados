@@ -16,17 +16,15 @@ typedef struct {
 
 //Métodos de Pilha
 void InicializaPilha(Pilha* pilha) {
-    printf("Setando o topo para -1");
     pilha->topo = -1;
 }
 
 int PilhaVazia(Pilha* pilha) {
-    printf("Valor do topo da pilha: %d \n", pilha->topo);
     return pilha->topo == -1;
 }
 
 int PilhaCheia(Pilha pilha) {
-    return pilha.topo == pilha.tamMax;
+    return pilha.topo == (pilha.tamMax - 1);
 }
 
 void Empilha(Pilha* pilha, int newElem) {
@@ -54,19 +52,15 @@ int ElementoDoTopo(Pilha* pilha) {
 
 //Métodos para o jogo
 int GerarNumeroAleatorioAte(int maximum) {
-    int val = 1 + rand()%(maximum);
     //Exclui zero e inclui maximo
+    int val = 1 + rand()%(maximum);
     return val;
 }
 
 int ExisteValorRepetido(Pilha* pilha, int numero_aleatorio) {
-
-    printf("Pilha vazia: %d, numero gerado: %d \n", PilhaVazia(pilha), numero_aleatorio);
-    printf("Tamanho da pilha %d", pilha->topo+1);
     if(!PilhaVazia(pilha)) {
         for (int i = 0; i < (*pilha).tamMax; i++) {
             if ((*pilha).elem[i] == numero_aleatorio) {
-                printf("%d == %d\n", (*pilha).elem[i], numero_aleatorio);
                 return 1;
             }
         }
@@ -92,10 +86,9 @@ Pilha* InicializarPilhasJogo(int tamanhoPilhas) {
     printf("Inicializando pilhas do jogo...\n");
     Pilha pilhas[tamanhoPilhas+2];
     for (int i = 0; i < tamanhoPilhas+2; i++) {
-        printf("Pilha %d...\n", i);
         pilhas[i].tamMax = (tamanhoPilhas);
         InicializaPilha(&pilhas[i]);
-        if (i < tamanhoPilhas - 1) {
+        if (i < tamanhoPilhas) {
             printf("Entrando para gerar valores na pilha %d...\n", i);
             GerarValoresNaPilha(&pilhas[i]);
         }
@@ -106,7 +99,7 @@ Pilha* InicializarPilhasJogo(int tamanhoPilhas) {
 }
 
 Pilha* SelecionarDificuldade() {
-    printf("Selecione a dificuldade do jogo: \n 1) Facil \n 2) Medio \n 3) Dificil \nsua resposta>");
+    printf("Selecione a dificuldade do jogo: \n 1) Facil \n 2) Medio \n 3) Dificil \nsua resposta ->");
     int opcao = 0;
     scanf("%d", &opcao);
     switch (opcao) {
@@ -127,7 +120,7 @@ Pilha* SelecionarDificuldade() {
 
 void PrintarPilhas(Pilha* pilhas) {
    for (int pos_pilha = 0; pos_pilha < pilhas[0].tamMax+2; pos_pilha++) {
-       printf("PILHA %d: [", pos_pilha);
+       printf("PILHA %d: [", pos_pilha + 1);
        for (int pivot = 0; pivot < pilhas[pos_pilha].tamMax; pivot++) {
             if (pivot > pilhas[pos_pilha].topo) {
                 printf("| - |");
