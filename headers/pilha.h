@@ -20,12 +20,11 @@ void InicializaPilha(Pilha* pilha) {
 }
 
 int PilhaVazia(Pilha* pilha) {
-    printf("Valor do topo da pilha: %d \n", pilha->topo);
     return pilha->topo == -1;
 }
 
 int PilhaCheia(Pilha pilha) {
-    return pilha.topo == (pilha.tamMax);
+    return pilha.topo == (pilha.tamMax - 1);
 }
 
 void Empilha(Pilha* pilha, int newElem) {
@@ -53,8 +52,8 @@ int ElementoDoTopo(Pilha* pilha) {
 
 //Métodos para o jogo
 int GerarNumeroAleatorioAte(int maximum) {
-    int val = 1 + rand()%(maximum);
     //Exclui zero e inclui maximo
+    int val = 1 + rand()%(maximum);
     return val;
 }
 
@@ -121,7 +120,7 @@ Pilha* SelecionarDificuldade() {
 
 void PrintarPilhas(Pilha* pilhas) {
    for (int pos_pilha = 0; pos_pilha < pilhas[0].tamMax+2; pos_pilha++) {
-       printf("PILHA %d: [", pos_pilha);
+       printf("PILHA %d: [", pos_pilha + 1);
        for (int pivot = 0; pivot < pilhas[pos_pilha].tamMax; pivot++) {
             if (pivot > pilhas[pos_pilha].topo) {
                 printf("| - |");
